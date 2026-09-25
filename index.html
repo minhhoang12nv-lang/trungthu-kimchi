@@ -14,124 +14,143 @@
 }
 
 body{
-    height:100vh;
+    background:linear-gradient(180deg,#081126,#162c72,#481756);
+    color:#fff;
+    width:100%;
+    min-height:100vh;
     overflow:hidden;
-    background:linear-gradient(to bottom,#080b2e,#1b2f7c,#45145a);
-    color:white;
 }
+
+/* Moon */
 
 .moon{
     position:absolute;
-    top:40px;
+    top:20px;
     left:50%;
     transform:translateX(-50%);
-    width:180px;
-    height:180px;
+    width:140px;
+    height:140px;
     border-radius:50%;
-    background:#fff3b0;
+    background:#fff4b5;
     box-shadow:
-        0 0 40px #fff3b0,
-        0 0 100px #fff3b0,
-        0 0 180px #ffd86b;
+    0 0 50px #fff4b5,
+    0 0 120px #ffd76a;
     animation:moonFloat 5s infinite ease-in-out;
 }
 
 @keyframes moonFloat{
     50%{
-        transform:translateX(-50%) translateY(-10px);
+        transform:translateX(-50%) translateY(-8px);
     }
 }
 
+/* Lantern */
+
 .lantern{
     position:absolute;
-    font-size:60px;
+    font-size:42px;
     animation:swing 4s infinite ease-in-out;
 }
 
 .left{
-    left:6%;
-    top:100px;
+    left:15px;
+    top:90px;
 }
 
 .right{
-    right:6%;
-    top:100px;
-    animation-delay:2s;
+    right:15px;
+    top:90px;
 }
 
 @keyframes swing{
     50%{
-        transform:translateY(-15px);
+        transform:translateY(-10px);
     }
 }
 
+/* Card */
+
 .card{
     position:absolute;
-    top:50%;
+    top:55%;
     left:50%;
     transform:translate(-50%,-50%);
-    width:90%;
-    max-width:900px;
-    padding:30px;
-    text-align:center;
-    background:rgba(255,255,255,.12);
+    width:94%;
+    max-width:700px;
+    background:rgba(255,255,255,.1);
+    border-radius:25px;
     backdrop-filter:blur(10px);
-    border-radius:30px;
-    z-index:10;
+    padding:20px;
+    text-align:center;
 }
 
 .title{
-    font-size:40px;
-    color:#ffd86b;
-    margin-bottom:15px;
+    font-size:clamp(24px,6vw,38px);
+    color:#ffd76a;
+    margin-bottom:10px;
 }
 
 .names{
-    font-size:30px;
+    font-size:clamp(20px,5vw,30px);
     font-weight:bold;
-    margin-bottom:20px;
+    margin-bottom:10px;
 }
 
 .heart{
-    font-size:100px;
+    font-size:70px;
     animation:beat 1s infinite;
 }
 
 @keyframes beat{
-    50%{transform:scale(1.2);}
+    50%{
+        transform:scale(1.15);
+    }
 }
 
 .message{
-    margin-top:20px;
-    padding:20px;
-    line-height:1.9;
-    font-size:20px;
+    margin-top:15px;
     background:rgba(255,255,255,.08);
-    border-radius:20px;
-    min-height:320px;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+    line-height:1.8;
+    min-height:220px;
+    font-size:clamp(15px,4vw,20px);
 }
 
 #typing::after{
     content:"|";
-    color:#ffd86b;
+    color:#ffd76a;
     animation:blink .8s infinite;
 }
 
 @keyframes blink{
-    50%{opacity:0;}
+    50%{
+        opacity:0;
+    }
 }
+
+/* Audio */
+
+audio{
+    width:100%;
+    margin-top:15px;
+}
+
+/* Button */
 
 .musicBtn{
     margin-top:15px;
-    padding:14px 25px;
+    padding:12px 20px;
     border:none;
     border-radius:20px;
-    cursor:pointer;
-    font-size:18px;
+    background:#ffd76a;
+    color:#333;
     font-weight:bold;
-    background:#ffd86b;
-    color:#222;
+    cursor:pointer;
 }
+
+/* Stars */
 
 .star{
     position:absolute;
@@ -145,10 +164,12 @@ body{
     to{opacity:1;}
 }
 
+/* Hearts */
+
 .float-heart{
     position:absolute;
     bottom:-50px;
-    color:#ff7ca4;
+    color:#ff6f9f;
     animation:rise 10s linear infinite;
 }
 
@@ -171,7 +192,8 @@ body{
     bottom:10px;
     width:100%;
     text-align:center;
-    opacity:.7;
+    opacity:.8;
+    font-size:13px;
 }
 </style>
 </head>
@@ -193,40 +215,19 @@ body{
         Minh Luân ❤️ Kim Chi
     </div>
 
-    <div class="heart">
-        ❤️
-    </div>
+    <div class="heart">❤️</div>
 
     <div class="message">
         <span id="typing"></span>
     </div>
 
-    <div style="margin-top:20px">
- 
-<audio
-id="bgMusic"
-controls
-preload="metadata"
-loop
-style="
-width:100%;
-max-width:500px;
-border-radius:10px;
-">
- 
-music.mp3
- 
-Trình duyệt không hỗ trợ audio.
- 
-</audio>
- 
-</div>
-    <button
-        class="musicBtn"
-        onclick="toggleMusic()">
+    <audio id="bgMusic" controls preload="metadata" loop>
+        music.mp3
+        Trình duyệt không hỗ trợ audio.
+    </audio>
 
+    <button class="musicBtn" onclick="toggleMusic()">
         🎵 Bật / Tắt Nhạc
-
     </button>
 
 </div>
@@ -237,19 +238,20 @@ Trình duyệt không hỗ trợ audio.
 
 <script>
 
-const text = `Kim Chi à ( Sến quá )
+/* Typing Text */
 
-Dưới ánh trăng rằm sáng nhất của mùa Trung Thu, anh muốn gửi đến em những lời chúc chân thành và ngọt ngào nhất.
+const text = `Kim Chi à,
 
-Cảm ơn em đã xuất hiện trong cuộc sống của anh, mang đến những nụ cười, những khoảnh khắc bình yên và thật nhiều yêu thương.
+Dưới ánh trăng rằm của mùa Trung Thu năm nay,
+anh muốn gửi đến em những điều tốt đẹp nhất.
 
-Anh mong rằng dù có bao nhiêu mùa trăng nữa đi qua, chúng ta vẫn luôn đồng hành bên nhau.
+Cảm ơn em đã xuất hiện trong cuộc sống của anh,
+mang đến niềm vui, sự bình yên và thật nhiều yêu thương.
 
-✨ Chúc em luôn vui vẻ, hạnh phúc và rạng rỡ như ánh trăng đêm nay. ✨
+Chúc em luôn hạnh phúc, mạnh khỏe,
+rạng rỡ như ánh trăng đêm nay.
 
-❤️ Yêu em rất nhiều ❤️
-
-Minh Luân`;
+❤️ Minh Luân ❤️`;
 
 let idx = 0;
 
@@ -268,30 +270,37 @@ function typeWriter(){
 
         idx++;
 
-        setTimeout(typeWriter,40);
+        setTimeout(typeWriter,35);
     }
 }
+
+window.onload = () => {
+    typeWriter();
+};
+
+/* Audio */
 
 const audio =
 document.getElementById("bgMusic");
 
-let musicStarted = false;
+let autoStarted = false;
 
 async function startMusic(){
 
-    if(musicStarted) return;
+    if(autoStarted) return;
 
     try{
 
         await audio.play();
 
-        musicStarted = true;
+        autoStarted = true;
 
     }catch(err){
 
         console.log(err);
 
     }
+
 }
 
 document.addEventListener(
@@ -322,24 +331,21 @@ async function toggleMusic(){
 
     }catch(err){
 
-        alert("Không tìm thấy file music.mp3");
-
         console.log(err);
+
     }
+
 }
 
-window.onload = () => {
-    typeWriter();
-};
-
 /* Stars */
-for(let i=0;i<150;i++){
+
+for(let i=0;i<120;i++){
 
     let star=document.createElement("div");
 
     star.className="star";
 
-    let size=Math.random()*3+1;
+    const size=Math.random()*3+1;
 
     star.style.width=size+"px";
     star.style.height=size+"px";
@@ -351,77 +357,29 @@ for(let i=0;i<150;i++){
 }
 
 /* Floating Hearts */
+
 setInterval(()=>{
 
-    let h=document.createElement("div");
+    let heart=document.createElement("div");
 
-    h.className="float-heart";
+    heart.className="float-heart";
 
-    h.innerHTML="❤️";
+    heart.innerHTML="❤️";
 
-    h.style.left=Math.random()*100+"vw";
+    heart.style.left=Math.random()*100+"vw";
 
-    h.style.fontSize=
-    (20+Math.random()*30)+"px";
+    heart.style.fontSize=
+    (18+Math.random()*22)+"px";
 
-    document.body.appendChild(h);
+    document.body.appendChild(heart);
 
     setTimeout(()=>{
-        h.remove();
+        heart.remove();
     },10000);
 
-},500);
+},600);
 
-</script>
- 
-if(started) return;
- 
-try{
- 
-await audio.play();
- 
-started = true;
- 
-}catch(err){
- 
-console.log(err);
- 
-}
-}
- 
-document.addEventListener(
-"click",
-autoPlayMusic,
-{once:true}
-);
- 
-document.addEventListener(
-"touchstart",
-autoPlayMusic,
-{once:true}
-);
- 
-async function toggleMusic(){
- 
-try{
- 
-if(audio.paused){
- 
-await audio.play();
- 
-}else{
- 
-audio.pause();
- 
-}
- 
-}catch(err){
- 
-console.log(err);
- 
-}
-}
 </script>
 
 </body>
-    
+</html>
