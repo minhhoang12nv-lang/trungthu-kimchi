@@ -372,6 +372,59 @@ setInterval(()=>{
 
 },500);
 
+</script><script>
+const audio = document.getElementById("bgMusic");
+let started = false;
+ 
+async function autoPlayMusic(){
+ 
+if(started) return;
+ 
+try{
+ 
+await audio.play();
+ 
+started = true;
+ 
+}catch(err){
+ 
+console.log(err);
+ 
+}
+}
+ 
+document.addEventListener(
+"click",
+autoPlayMusic,
+{once:true}
+);
+ 
+document.addEventListener(
+"touchstart",
+autoPlayMusic,
+{once:true}
+);
+ 
+async function toggleMusic(){
+ 
+try{
+ 
+if(audio.paused){
+ 
+await audio.play();
+ 
+}else{
+ 
+audio.pause();
+ 
+}
+ 
+}catch(err){
+ 
+console.log(err);
+ 
+}
+}
 </script>
 
 </body>
